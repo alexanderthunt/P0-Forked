@@ -14,6 +14,8 @@ public class ConnectionUtil {
         try {
             Properties prop = new Properties();
             prop.load(new FileInputStream("src/main/resources/db-properties.properties"));
+            
+
             return DriverManager.getConnection(
                 prop.getProperty("URL"), 
                 prop.getProperty("USERNAME"), 
