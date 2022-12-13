@@ -20,9 +20,11 @@ public class UserService {
 		return this.dao.createUser(registerRequest);
 	}
 
+	/*
 	public static void main(String[] args) {
 		UserService userService = new UserService();
 		System.out.println(userService.getUserByUsername("Bob"));
 	}
+	*/
 
 }

@@ -31,21 +31,52 @@ public class PlanetDao {
 	}
 
 	public Planet getPlanetByName(String owner, String planetName) {
-		// TODO Auto-generated method stub
-		return null;
+		try (Connection connection = ConnectionUtil.createConnection()) {
+			String sql = "select * from planets where name = ?";
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setString(1, planetName);
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			Planet planet = new Planet();
+			planet.setId(rs.getInt(1));
+			planet.setName(rs.getString(2));
+			planet.setOwnerId(rs.getInt(3));
+			return planet;
+		} catch (SQLException e) {
+			System.out.println(e);
+			return new Planet();
+		}
 	}
 
 	public Planet getPlanetById(String username, int planetId) {
-		// TODO Auto-generated method stub
-		return null;
+		try (Connection connection = ConnectionUtil.createConnection()) {
+			String sql = "select * from planets where id = ?";
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setInt(1, planetId);
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			Planet planet = new Planet();
+			planet.setId(rs.getInt(1));
+			planet.setName(rs.getString(2));
+			planet.setOwnerId(rs.getInt(3));
+			return planet;
+		} catch (SQLException e) {
+			System.out.println(e);
+			return new Planet();
+		}
 	}
 
+	//What does RETURN_GENERATED_KEYS do? How do I get the ID of the user that owns the planet?
 	public Planet createPlanet(String username, Planet p) {
 		try (Connection connection = ConnectionUtil.createConnection()) {
 			String sql = "insert into planets values (default,?,?)";
-
-		} catch (Exception e) { //incomplete catch block! Fix exception type!
+			PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);//I don't understand what this line does.
+			ps.setString(1, p.getName());
+			ps.setInt(2, 0);//have to pass in the id of the user in second parameter still.
+			//more lines of code required to complete method
+		} catch (SQLException e) {
 			System.out.println(e);
+			return new Planet();
 		}
 		return null;
 	}

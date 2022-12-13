@@ -37,14 +37,6 @@ public class UserDao {
     }
 
     public User createUser(UsernamePasswordAuthentication registerRequest){
-        /*
-         * step 1: write query
-         * step 2: provide relevent information to the query
-         * step 3: execute query
-         * step 4: handle responses
-         */
-
-        // try with resources, allows use of resources while automatically closing it after the try is complete.
         try(Connection connection = ConnectionUtil.createConnection()) {
             String sql = "insert into users values (default,?,?)";//? is a placeholder
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);//prepareStatement needs the sql code
