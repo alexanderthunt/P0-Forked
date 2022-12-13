@@ -1,10 +1,14 @@
 package com.revature.repository;
 
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.revature.models.User;
 import com.revature.models.UsernamePasswordAuthentication;
@@ -12,6 +16,8 @@ import com.revature.utilities.ConnectionUtil;
 
 public class UserDao {
     
+    public static Logger logger = LoggerFactory.getLogger(UserDao.class);
+
     public User getUserByUsername(String username){
         try(Connection connection = ConnectionUtil.createConnection()) {
             String sql = "select * from users where username = ?";
@@ -67,5 +73,9 @@ public class UserDao {
         // System.out.println(dao.createUser(newUser).getId());
 
         System.out.println(dao.getUserByUsername("lombak"));
+        logger.info("testing info level");
+        
+        //system method called nanotime
+        //subtract end from start nanotime inside a method.
     }
 }

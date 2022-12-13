@@ -24,7 +24,7 @@ public class AuthenticateController {
 		}
 	}
 
-	public void register(Context ctx) {
+	public void register(Context ctx) { //this method does not handle an error. Example: create account with taken username. Don't handle this problem.
 
 		UsernamePasswordAuthentication registerRequest = ctx.bodyAsClass(UsernamePasswordAuthentication.class);
 

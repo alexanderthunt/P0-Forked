@@ -1,0 +1,43 @@
+<configuration>
+    <!-- Appenders tell logback where to send logs-->
+    <!-- console -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- Encoders tell logback how to format logs-->
+        <encoder>
+            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg %n</pattern>
+        </encoder>
+    </appender>
+    <!-- file -->
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>logs/staticLogs.log</file>
+        <append>true</append>
+        <encoder>
+            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg %n</pattern>
+        </encoder>
+    </appender>
+    <!-- rolling -->
+    <appender name="ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/rollingFile.log</file>
+        <append>true</append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/rollingLogFile.%d{yyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>7</maxHistory>
+            <totalSizeCap>3GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg %n</pattern>
+        </encoder>
+    </appender>
+    <!-- root tells logback what the default log settings should be if none are specified -->
+    <root level="INFO">
+        <appender-ref ref="ROLLING" />
+    </root>
+</configuration> <!-- 
+    Logging levels - they are inclusive
+        TRACE: Gives all details of the application
+        DEBUG: Gives minimum details required for debugging
+        INFO: Gives general information about the application
+        WARN: Gives information about potentional errors
+        ERROR: Gives information about errors
+        NONE (turns off logging)
+-->
