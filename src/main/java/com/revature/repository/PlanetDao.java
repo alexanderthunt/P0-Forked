@@ -66,19 +66,24 @@ public class PlanetDao {
 		}
 	}
 
-	//What does RETURN_GENERATED_KEYS do? How do I get the ID of the user that owns the planet?
 	public Planet createPlanet(String username, Planet p) {
 		try (Connection connection = ConnectionUtil.createConnection()) {
-			String sql = "insert into planets values (default,?,?)";
-			PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);//I don't understand what this line does.
-			ps.setString(1, p.getName());
-			ps.setInt(2, 0);//have to pass in the id of the user in second parameter still.
-			//more lines of code required to complete method
+			String sql = "insert into planets values (?,?,?)";
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setInt(1, p.getId());
+			ps.setString(2, p.getName());
+			ps.setInt(3, p.getOwnerId());
+			ResultSet rs = ps.executeQuery();
+			Planet newPlanet = new Planet();
+			rs.next();
+			newPlanet.setId(rs.getInt(1));
+			newPlanet.setName(rs.getString(2));
+			newPlanet.setOwnerId(rs.getInt(3));
+			return newPlanet;
 		} catch (SQLException e) {
 			System.out.println(e);
 			return new Planet();
 		}
-		return null;
 	}
 
 	public void deletePlanetById(int planetId) {

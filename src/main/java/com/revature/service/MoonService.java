@@ -14,12 +14,8 @@ public class MoonService {
 		this.dao = new MoonDao();
 	}
 
-	public List<Moon> getAllMoons() {
-		try {
-			return this.dao.getAllMoons();
-		} catch (SQLException e) {
-			return null; // FIND A BETTER SOLUTION
-		}
+	public List<Moon> getAllMoons() throws SQLException {
+		return this.dao.getAllMoons();
 	}
 
 	public Moon getMoonByName(String username, String moonName) {
@@ -38,11 +34,7 @@ public class MoonService {
 		this.dao.deleteMoonById(moonId);
 	}
 
-	public List<Moon> getMoonsFromPlanet(int planetId) {
-		try {
-			return this.dao.getMoonsFromPlanet(planetId);
-		} catch (Exception e) {
-			return null; // FIND A BETTER SOLUTION
-		}
+	public List<Moon> getMoonsFromPlanet(int planetId) throws SQLException {
+		return this.dao.getMoonsFromPlanet(planetId);
 	}
 }

@@ -10,16 +10,12 @@ public class PlanetService {
 
 	private PlanetDao dao;
 
-	public PlanetService(){
+	public PlanetService() {
 		this.dao = new PlanetDao();
 	}
 
-	public List<Planet> getAllPlanets() {
-		try {
-			return this.dao.getAllPlanets();
-		} catch (SQLException e) {
-			return null; //FIND A BETTER SOLUTION
-		}
+	public List<Planet> getAllPlanets() throws SQLException {
+		return this.dao.getAllPlanets();
 	}
 
 	public Planet getPlanetByName(String owner, String planetName) {

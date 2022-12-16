@@ -66,8 +66,23 @@ public class MoonDao {
 	}
 
 	public Moon createMoon(String username, Moon m) {
-		// TODO Auto-generated method stub
-		return null;
+		try (Connection connection = ConnectionUtil.createConnection()) {
+			String sql = "insert into moons values (?,?,?)";
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setInt(1, m.getId());
+			ps.setString(2, m.getName());
+			ps.setInt(3, m.getMyPlanetId());
+			ResultSet rs = ps.executeQuery();
+			Moon newMoon = new Moon();
+			rs.next();
+			newMoon.setId(rs.getInt(1));
+			newMoon.setName(rs.getString(2));
+			newMoon.setMyPlanetId(rs.getInt(3));
+			return newMoon;
+		} catch (SQLException e) {
+			System.out.println(e);
+			return new Moon();
+		}
 	}
 
 	public void deleteMoonById(int moonId) {

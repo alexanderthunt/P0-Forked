@@ -1,10 +1,10 @@
 ## Complete Function of Classes:
   - src\main\java\com\revature\repository\UserDao.java <!--Complete>
-  - src\main\java\com\revature\repository\PlanetDao.java <!--1 method incomplete>
-  - src\main\java\com\revature\repository\MoonDao.java <!--1 method incomplete-->
+  - src\main\java\com\revature\repository\PlanetDao.java <!--Complete>
+  - src\main\java\com\revature\repository\MoonDao.java <!--Complete-->
   - src\main\java\com\revature\service\UserService.java <!--Complete-->
-  - src\main\java\com\revature\service\PlanetService.java <!--1 Major error needs attention-->
-  - src\main\java\com\revature\service\MoonService.java <!--1 Major error needs attention-->
+  - src\main\java\com\revature\service\PlanetService.java <!--Complete-->
+  - src\main\java\com\revature\service\MoonService.java <!--Complete-->
 
 ## Site Reliability Engineering (SRE) Requirements
   - Implement SLF4j and Logback to capture relevant events and their associated data in real time. 
