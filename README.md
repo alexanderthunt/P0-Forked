@@ -14,8 +14,8 @@
 - 99.8% of requests should complete successfully within 200 milliseconds<!--COMPLETE-->
 
 ### Service Level Indicators (SLI)
-- Latency: you should track how long it takes for the Planetarium app to handle requests made to the system<!--nanotime-->
-- Error Rate: Find the percentage of errors that are 500 error codes<!--Need to create log parse script-->
+- Latency: you should track how long it takes for the Planetarium app to handle requests made to the system<!--COMPLETE-->
+- Error Rate: Find the percentage of errors that are 500 error codes<!--NOT COMPLETE-->
 
 ### Service Level Indicator Exposure (SLIE)
 Create bash scripts that read the log file and parse relevant data<!--NOT COMPLETE-->
