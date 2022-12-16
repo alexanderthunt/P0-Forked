@@ -8,21 +8,21 @@
 
 ## Site Reliability Engineering (SRE) Requirements
   - Implement SLF4j and Logback to capture relevant events and their associated data in real time.<!--COMPELTE-->
-  - Create a script OUTSIDE of the project to aggregate the data to measure your SLIs and achieve MVP requirements. <!--Need to figure out how to print approriate data to log-->
+  - Create a script OUTSIDE of the project to aggregate the data to measure your SLIs and achieve MVP requirements. <!--COMPLETE-->
 
 ### Service Level Objects (SLO)
 - 99.8% of requests should complete successfully within 200 milliseconds<!--COMPLETE-->
 
 ### Service Level Indicators (SLI)
 - Latency: you should track how long it takes for the Planetarium app to handle requests made to the system<!--COMPLETE-->
-- Error Rate: Find the percentage of errors that are 500 error codes<!--NOT COMPLETE-->
+- Error Rate: Find the percentage of errors that are 500 error codes<!--COMPLETE-->
 
 ### Service Level Indicator Exposure (SLIE)
-Create bash scripts that read the log file and parse relevant data<!--NOT COMPLETE-->
+Create bash scripts that read the log file and parse relevant data<!--COMPLETE-->
 
 # Minimum Viable Product (MVP)
 - Development: All unimplemented methods should be completed<!--COMPELTE-->
-- SRE: Logging should be added to the project, scripts should parse relevant data<!--NOT COMPLETE-->
+- SRE: Logging should be added to the project, scripts should parse relevant data<!--COMPLETE-->
 
 
 <!--
