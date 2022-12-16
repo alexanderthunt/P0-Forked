@@ -8,10 +8,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.revature.models.Planet;
 import com.revature.utilities.ConnectionUtil;
 
 public class PlanetDao {
+
+	public static Logger logger = LoggerFactory.getLogger(PlanetDao.class);
 	
 	public List<Planet> getAllPlanets() throws SQLException {
 		try (Connection connection = ConnectionUtil.createConnection()) {
@@ -95,6 +100,7 @@ public class PlanetDao {
 			System.out.println("Rows affected: " + rowsAffected);
 		} catch (SQLException e) {
 			System.out.println(e); //good spot to add some logging
+
 		}
 	}
 

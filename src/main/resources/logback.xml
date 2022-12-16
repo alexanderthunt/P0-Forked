@@ -30,7 +30,7 @@
     </appender>
     <!-- root tells logback what the default log settings should be if none are specified -->
     <root level="INFO">
-        <appender-ref ref="ROLLING" />
+        <appender-ref ref="FILE" />
     </root>
 </configuration> <!-- 
     Logging levels - they are inclusive
