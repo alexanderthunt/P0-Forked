@@ -1,6 +1,6 @@
 ## Complete Function of Classes:
-  - src\main\java\com\revature\repository\UserDao.java <!--Complete>
-  - src\main\java\com\revature\repository\PlanetDao.java <!--Complete>
+  - src\main\java\com\revature\repository\UserDao.java <!--Complete-->
+  - src\main\java\com\revature\repository\PlanetDao.java <!--Complete-->
   - src\main\java\com\revature\repository\MoonDao.java <!--Complete-->
   - src\main\java\com\revature\service\UserService.java <!--Complete-->
   - src\main\java\com\revature\service\PlanetService.java <!--Complete-->

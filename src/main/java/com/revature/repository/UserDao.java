@@ -1,6 +1,5 @@
 package com.revature.repository;
 
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,11 +14,11 @@ import com.revature.models.UsernamePasswordAuthentication;
 import com.revature.utilities.ConnectionUtil;
 
 public class UserDao {
-    
+
     public static Logger logger = LoggerFactory.getLogger(UserDao.class);
 
-    public User getUserByUsername(String username){
-        try(Connection connection = ConnectionUtil.createConnection()) {
+    public User getUserByUsername(String username) {
+        try (Connection connection = ConnectionUtil.createConnection()) {
             String sql = "select * from users where username = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, username);
@@ -36,10 +35,10 @@ public class UserDao {
         }
     }
 
-    public User createUser(UsernamePasswordAuthentication registerRequest){
-        try(Connection connection = ConnectionUtil.createConnection()) {
-            String sql = "insert into users values (default,?,?)";//? is a placeholder
-            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);//prepareStatement needs the sql code
+    public User createUser(UsernamePasswordAuthentication registerRequest) {
+        try (Connection connection = ConnectionUtil.createConnection()) {
+            String sql = "insert into users values (default,?,?)";// ? is a placeholder
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, registerRequest.getUsername());
             ps.setString(2, registerRequest.getPassword());
             ps.execute();
@@ -57,17 +56,18 @@ public class UserDao {
         }
     }
 
-    public static void main(String[]args) {
+    public static void main(String[] args) {
         UserDao dao = new UserDao();
-        // UsernamePasswordAuthentication newUser = new UsernamePasswordAuthentication();
+        // UsernamePasswordAuthentication newUser = new
+        // UsernamePasswordAuthentication();
         // newUser.setUsername("lombak");
         // newUser.setPassword("I want Spring");
         // System.out.println(dao.createUser(newUser).getId());
 
         System.out.println(dao.getUserByUsername("lombak"));
         logger.info("testing info level");
-        
-        //system method called nanotime
-        //subtract end from start nanotime inside a method.
+
+        // system method called nanotime
+        // subtract end from start nanotime inside a method.
     }
 }
