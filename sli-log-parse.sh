@@ -1,4 +1,4 @@
-httpCodes=$(grep Response: ./logs/staticLogs.log | cut -f 1 -d , | cut -f 2 -d : | cut -f 2 -d [ | cut -f 1 -d O)
+httpCodes=$(grep Response: ./logs/staticLogs.log | cut -f 2 -d [ | cut -f 1 -d ' ')
 
 httpRequestTotal=0
 httpFailures=0
@@ -19,7 +19,7 @@ result=$(awk "BEGIN {print $httpSuccess / $httpRequestTotal * 100; exit}")
 echo "HTTP Status success rate: $result%"
 
 
-httpResponseTime=$(grep Response: ./logs/staticLogs.log | cut -f 2 -d , | cut -f 2 -d k | cut -f 1 -d .)
+httpResponseTime=$(grep Response: ./logs/staticLogs.log | cut -f 2 -d , | cut -f 4 -d ' ' | cut -f 1 -d .)
 
 httpResponseTotal=0
 httpResponseOverTime=0
