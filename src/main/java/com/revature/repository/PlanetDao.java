@@ -73,14 +73,16 @@ public class PlanetDao {
 
 	public Planet createPlanet(String username, Planet planet) {
 		try (Connection connection = ConnectionUtil.createConnection()) {
-			String sql = "insert into planets values (?,?,?)";
-			PreparedStatement ps = connection.prepareStatement(sql);
-			ps.setInt(1, planet.getId());
-			ps.setString(2, planet.getName());
-			ps.setInt(3, planet.getOwnerId());
-			ps.executeUpdate();
+			String sql = "insert into planets values (default,?,?)";
+			PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			ps.setString(1, planet.getName());
+			ps.setInt(2, planet.getOwnerId());
+			ps.execute();
+			ResultSet rs = ps.getGeneratedKeys();
 			Planet newPlanet = new Planet();
-			newPlanet.setId(planet.getId());
+			rs.next();
+			int newId = rs.getInt("id");
+			newPlanet.setId(newId);
 			newPlanet.setName(planet.getName());
 			newPlanet.setOwnerId(planet.getOwnerId());
 			return newPlanet;

@@ -36,12 +36,9 @@ public class PlanetController {
 	}
 
 	public void createPlanet(Context ctx) {
-
 		Planet planetToBeCreated = ctx.bodyAsClass(Planet.class);
 		User u = ctx.sessionAttribute("user");
-
 		Planet createdPlanet = pService.createPlanet(u.getUsername(), planetToBeCreated);
-
 		ctx.json(createdPlanet).status(201);
 	}
 
