@@ -35,7 +35,7 @@ public class PlanetDao {
 		}
 	}
 
-	public Planet getPlanetByName(String owner, String planetName) {
+	public Planet getPlanetByName(String owner, String planetName) throws SQLException {
 		try (Connection connection = ConnectionUtil.createConnection()) {
 			String sql = "select * from planets where name = ?";
 			PreparedStatement ps = connection.prepareStatement(sql);
@@ -47,13 +47,10 @@ public class PlanetDao {
 			planet.setName(rs.getString(2));
 			planet.setOwnerId(rs.getInt(3));
 			return planet;
-		} catch (SQLException e) {
-			System.out.println(e);
-			return new Planet();
-		}
+		} 
 	}
 
-	public Planet getPlanetById(String username, int planetId) {
+	public Planet getPlanetById(String username, int planetId) throws SQLException {
 		try (Connection connection = ConnectionUtil.createConnection()) {
 			String sql = "select * from planets where id = ?";
 			PreparedStatement ps = connection.prepareStatement(sql);
@@ -65,13 +62,10 @@ public class PlanetDao {
 			planet.setName(rs.getString(2));
 			planet.setOwnerId(rs.getInt(3));
 			return planet;
-		} catch (SQLException e) {
-			System.out.println(e);
-			return new Planet();
-		}
+		} 
 	}
 
-	public Planet createPlanet(String username, Planet planet) {
+	public Planet createPlanet(String username, Planet planet) throws SQLException {
 		try (Connection connection = ConnectionUtil.createConnection()) {
 			String sql = "insert into planets values (default,?,?)";
 			PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -86,23 +80,20 @@ public class PlanetDao {
 			newPlanet.setName(planet.getName());
 			newPlanet.setOwnerId(planet.getOwnerId());
 			return newPlanet;
-		} catch (SQLException e) {
-			System.out.println(e);
-			return new Planet();
 		}
 	}
 
-	public void deletePlanetById(int planetId) {
+	public void deletePlanetById(int planetId) throws SQLException, IndexOutOfBoundsException {
 		try (Connection connection = ConnectionUtil.createConnection()) {
 			String sql = "delete from planets where id = ?";
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ps.setInt(1, planetId);
 			int rowsAffected = ps.executeUpdate();
 			System.out.println("Rows affected: " + rowsAffected);
-		} catch (SQLException e) {
-			System.out.println(e); // good spot to add some logging
-
-		}
+			if (rowsAffected == 0) {
+				throw new IndexOutOfBoundsException();
+			}
+		} 
 	}
 
 	public static void main(String[] args) {

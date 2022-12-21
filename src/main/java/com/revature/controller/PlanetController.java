@@ -16,37 +16,53 @@ public class PlanetController {
 	}
 
 	public void getPlanetByName(Context ctx) {
-
 		User u = ctx.sessionAttribute("user");
 		String planetName = ctx.pathParam("name");
-
-		Planet p = pService.getPlanetByName(u.getUsername(), planetName);
-
-		ctx.json(p).status(200);
+		try {
+			Planet p = pService.getPlanetByName(u.getUsername(), planetName);
+			ctx.json(p).status(200);
+		} catch (SQLException e) {
+			System.out.println("ERROR CAUGHT: " + e);
+			ctx.json("There is no planet with that name.").status(400);
+		}
 	}
 
 	public void getPlanetByID(Context ctx) {
-
 		User u = ctx.sessionAttribute("user");
 		int planetId = ctx.pathParamAsClass("id", Integer.class).get();
-
-		Planet p = pService.getPlanetById(u.getUsername(), planetId);
-
-		ctx.json(p).status(200);
+		try {
+			Planet p = pService.getPlanetById(u.getUsername(), planetId);
+			ctx.json(p).status(200);
+		} catch (SQLException e) {
+			System.out.println("ERROR CAUGHT: " + e);
+			ctx.json("There are no planets with that Id.").status(400);
+		}
 	}
 
 	public void createPlanet(Context ctx) {
 		Planet planetToBeCreated = ctx.bodyAsClass(Planet.class);
 		User u = ctx.sessionAttribute("user");
-		Planet createdPlanet = pService.createPlanet(u.getUsername(), planetToBeCreated);
-		ctx.json(createdPlanet).status(201);
+		try {
+			Planet createdPlanet = pService.createPlanet(u.getUsername(), planetToBeCreated);
+			ctx.json(createdPlanet).status(201);
+		} catch (SQLException e) {
+			System.out.println("ERROR CAUGHT: " + e);
+			ctx.json("Owner id does not exist.").status(400);
+		}
 	}
 
 	public void deletePlanet(Context ctx) {
-
 		int planetId = ctx.pathParamAsClass("id", Integer.class).get();
-
-		pService.deletePlanetById(planetId);
-		ctx.json("Planet successfully deleted").status(202);
+		
+		try {
+			pService.deletePlanetById(planetId);
+			ctx.json("Planet successfully deleted").status(202);
+		} catch (SQLException e) {
+			System.out.println("ERROR CAUGHT: " + e);
+			ctx.json("Index not in correct format.").status(400);
+		} catch (IndexOutOfBoundsException e) {
+			System.out.println("ERROR CAUGHT: " + e);
+			ctx.json("Index out of bounds.").status(400);
+		}
 	}
 }

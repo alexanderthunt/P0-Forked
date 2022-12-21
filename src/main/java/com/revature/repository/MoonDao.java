@@ -29,7 +29,7 @@ public class MoonDao {
 		}
 	}
 
-	public Moon getMoonByName(String username, String moonName) {
+	public Moon getMoonByName(String username, String moonName) throws SQLException {
 		try (Connection connection = ConnectionUtil.createConnection()) {
 			String sql = "select * from moons where name = ?";
 			PreparedStatement ps = connection.prepareStatement(sql);
@@ -42,13 +42,10 @@ public class MoonDao {
 			moon.setMyPlanetId(rs.getInt(3));
 			;
 			return moon;
-		} catch (SQLException e) {
-			System.out.println(e);
-			return new Moon();
 		}
 	}
 
-	public Moon getMoonById(String username, int moonId) {
+	public Moon getMoonById(String username, int moonId) throws SQLException {
 		try (Connection connection = ConnectionUtil.createConnection()) {
 			String sql = "select * from moons where id = ?";
 			PreparedStatement ps = connection.prepareStatement(sql);
@@ -60,42 +57,38 @@ public class MoonDao {
 			moon.setName(rs.getString(2));
 			moon.setMyPlanetId(rs.getInt(3));
 			return moon;
-		} catch (SQLException e) {
-			System.out.println(e);
-			return new Moon();
 		}
 	}
 
-	public Moon createMoon(String username, Moon m) {
+	public Moon createMoon(String username, Moon moon) throws SQLException {
 		try (Connection connection = ConnectionUtil.createConnection()) {
-			String sql = "insert into moons values (?,?,?)";
-			PreparedStatement ps = connection.prepareStatement(sql);
-			ps.setInt(1, m.getId());
-			ps.setString(2, m.getName());
-			ps.setInt(3, m.getMyPlanetId());
-			ResultSet rs = ps.executeQuery();
+			String sql = "insert into moons values (default,?,?)";
+			PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			ps.setString(1, moon.getName());
+			ps.setInt(2, moon.getMyPlanetId());
+			ps.execute();
+			ResultSet rs = ps.getGeneratedKeys();
 			Moon newMoon = new Moon();
 			rs.next();
-			newMoon.setId(rs.getInt(1));
-			newMoon.setName(rs.getString(2));
-			newMoon.setMyPlanetId(rs.getInt(3));
+			int newId = rs.getInt("id");
+			newMoon.setId(newId);
+			newMoon.setName(moon.getName());
+			newMoon.setMyPlanetId(moon.getMyPlanetId());
 			return newMoon;
-		} catch (SQLException e) {
-			System.out.println(e);
-			return new Moon();
 		}
 	}
 
-	public void deleteMoonById(int moonId) {
+	public void deleteMoonById(int moonId) throws SQLException, IndexOutOfBoundsException {
 		try (Connection connection = ConnectionUtil.createConnection()) {
 			String sql = "delete from moons where id = ?";
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ps.setInt(1, moonId);
 			int rowsAffected = ps.executeUpdate();
 			System.out.println("Rows affected: " + rowsAffected);
-		} catch (SQLException e) {
-			System.out.println(e);
-		}
+			if (rowsAffected == 0) {
+				throw new IndexOutOfBoundsException();
+			}
+		} 
 	}
 
 	public List<Moon> getMoonsFromPlanet(int planetId) throws SQLException {

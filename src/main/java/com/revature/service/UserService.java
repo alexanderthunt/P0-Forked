@@ -1,5 +1,7 @@
 package com.revature.service;
 
+import java.sql.SQLException;
+
 import com.revature.models.User;
 import com.revature.models.UsernamePasswordAuthentication;
 import com.revature.repository.UserDao;
@@ -16,7 +18,7 @@ public class UserService {
 		return this.dao.getUserByUsername(username);
 	}
 
-	public User register(UsernamePasswordAuthentication registerRequest) {
+	public User register(UsernamePasswordAuthentication registerRequest) throws SQLException {
 		return this.dao.createUser(registerRequest);
 	}
 

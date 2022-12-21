@@ -35,7 +35,7 @@ public class UserDao {
         }
     }
 
-    public User createUser(UsernamePasswordAuthentication registerRequest) {
+    public User createUser(UsernamePasswordAuthentication registerRequest) throws SQLException {
         try (Connection connection = ConnectionUtil.createConnection()) {
             String sql = "insert into users values (default,?,?)";// ? is a placeholder
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -50,10 +50,7 @@ public class UserDao {
             newUser.setUsername(registerRequest.getUsername());
             newUser.setPassword(registerRequest.getPassword());
             return newUser;
-        } catch (SQLException e) {
-            System.out.println(e);
-            return new User();
-        }
+        } 
     }
 
     public static void main(String[] args) {
