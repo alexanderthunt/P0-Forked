@@ -6,8 +6,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class Moon {
-	
+
 	private int id;
-	private String name; 
+	private String name;
 	private int myPlanetId;
 }

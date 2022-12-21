@@ -2,7 +2,6 @@ package com.revature.service;
 
 import java.sql.SQLException;
 import java.util.List;
-
 import com.revature.models.Planet;
 import com.revature.repository.PlanetDao;
 

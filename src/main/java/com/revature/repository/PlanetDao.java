@@ -17,7 +17,7 @@ import com.revature.utilities.ConnectionUtil;
 public class PlanetDao {
 
 	public static Logger logger = LoggerFactory.getLogger(PlanetDao.class);
-	
+
 	public List<Planet> getAllPlanets() throws SQLException {
 		try (Connection connection = ConnectionUtil.createConnection()) {
 			String sql = "select * from planets";
@@ -71,19 +71,18 @@ public class PlanetDao {
 		}
 	}
 
-	public Planet createPlanet(String username, Planet p) {
+	public Planet createPlanet(String username, Planet planet) {
 		try (Connection connection = ConnectionUtil.createConnection()) {
 			String sql = "insert into planets values (?,?,?)";
 			PreparedStatement ps = connection.prepareStatement(sql);
-			ps.setInt(1, p.getId());
-			ps.setString(2, p.getName());
-			ps.setInt(3, p.getOwnerId());
-			ResultSet rs = ps.executeQuery();
+			ps.setInt(1, planet.getId());
+			ps.setString(2, planet.getName());
+			ps.setInt(3, planet.getOwnerId());
+			ps.executeUpdate();
 			Planet newPlanet = new Planet();
-			rs.next();
-			newPlanet.setId(rs.getInt(1));
-			newPlanet.setName(rs.getString(2));
-			newPlanet.setOwnerId(rs.getInt(3));
+			newPlanet.setId(planet.getId());
+			newPlanet.setName(planet.getName());
+			newPlanet.setOwnerId(planet.getOwnerId());
 			return newPlanet;
 		} catch (SQLException e) {
 			System.out.println(e);
@@ -99,7 +98,7 @@ public class PlanetDao {
 			int rowsAffected = ps.executeUpdate();
 			System.out.println("Rows affected: " + rowsAffected);
 		} catch (SQLException e) {
-			System.out.println(e); //good spot to add some logging
+			System.out.println(e); // good spot to add some logging
 
 		}
 	}
@@ -107,18 +106,18 @@ public class PlanetDao {
 	public static void main(String[] args) {
 
 		/*
-		PlanetDao planetDao = new PlanetDao();
-		try {
-			System.out.println(planetDao.getAllPlanets());
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
-		*/
-		
+		 * PlanetDao planetDao = new PlanetDao();
+		 * try {
+		 * System.out.println(planetDao.getAllPlanets());
+		 * } catch (SQLException e) {
+		 * System.out.println(e.getMessage());
+		 * }
+		 */
+
 		/*
-		PlanetDao planetDao = new PlanetDao();
-		planetDao.deletePlanetById();
-		*/
-		
+		 * PlanetDao planetDao = new PlanetDao();
+		 * planetDao.deletePlanetById();
+		 */
+
 	}
 }

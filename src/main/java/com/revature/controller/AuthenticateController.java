@@ -7,15 +7,15 @@ import com.revature.service.UserService;
 import io.javalin.http.Context;
 
 public class AuthenticateController {
-	
+
 	private UserService userService = new UserService();
 
 	public void authenticate(Context ctx) {
-		
+
 		UsernamePasswordAuthentication loginRequest = ctx.bodyAsClass(UsernamePasswordAuthentication.class);
-		
+
 		User u = userService.getUserByUsername(loginRequest.getUsername());
-	
+
 		if (u != null && u.getPassword().equals(loginRequest.getPassword())) {
 			ctx.sessionAttribute("user", u);
 			ctx.status(200);
@@ -24,7 +24,8 @@ public class AuthenticateController {
 		}
 	}
 
-	public void register(Context ctx) { //this method does not handle an error. Example: create account with taken username. Don't handle this problem.
+	public void register(Context ctx) { // this method does not handle an error. Example: create account with taken
+										// username. Don't handle this problem.
 
 		UsernamePasswordAuthentication registerRequest = ctx.bodyAsClass(UsernamePasswordAuthentication.class);
 
@@ -36,8 +37,8 @@ public class AuthenticateController {
 	public void invalidateSession(Context ctx) {
 		ctx.req().getSession().invalidate();
 	}
-	
-	public boolean verifySession(Context ctx) {	
+
+	public boolean verifySession(Context ctx) {
 		return ctx.sessionAttribute("user") != null;
 	}
 }

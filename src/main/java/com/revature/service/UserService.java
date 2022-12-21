@@ -8,7 +8,7 @@ public class UserService {
 
 	private UserDao dao;
 
-	public UserService(){
+	public UserService() {
 		this.dao = new UserDao();
 	}
 
@@ -21,10 +21,10 @@ public class UserService {
 	}
 
 	/*
-	public static void main(String[] args) {
-		UserService userService = new UserService();
-		System.out.println(userService.getUserByUsername("Bob"));
-	}
-	*/
+	 * public static void main(String[] args) {
+	 * UserService userService = new UserService();
+	 * System.out.println(userService.getUserByUsername("Bob"));
+	 * }
+	 */
 
 }

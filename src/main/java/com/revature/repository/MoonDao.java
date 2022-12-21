@@ -26,7 +26,7 @@ public class MoonDao {
 				moons.add(moon);
 			}
 			return moons;
-		} 
+		}
 	}
 
 	public Moon getMoonByName(String username, String moonName) {
@@ -39,7 +39,8 @@ public class MoonDao {
 			Moon moon = new Moon();
 			moon.setId(rs.getInt(1));
 			moon.setName(rs.getString(2));
-			moon.setMyPlanetId(rs.getInt(3));;
+			moon.setMyPlanetId(rs.getInt(3));
+			;
 			return moon;
 		} catch (SQLException e) {
 			System.out.println(e);
@@ -112,6 +113,6 @@ public class MoonDao {
 				moons.add(moon);
 			}
 			return moons;
-		} 
+		}
 	}
 }
